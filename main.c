@@ -25,6 +25,25 @@ void criacaoArquivo()
 //Não deve haver preocupação quanto a repetições de valores. Opcionalmente à leitura, os dados podem ser gerados aleatoriamente.
 void insercaoRegistro()
 {
+    int n, i, cont = 0;
+    arq = fopen("arquivo.dat", "r+b"); //Abre o arquivo binário existente para leitura e gravação de dados
+    if(arq = NULL)
+        printf("\nErro ao abrir o arquivo\n");
+    fread(&reg, sizeof(registro), 1, arq);
+    cont = 1;
+    printf("Quantas insercoes serao feitas?\n");
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+    {
+        //Atribuição de valores aleatórios para os campos
+
+        if(cont == 5)
+        {
+            fseek(arq, 12, SEEK_CUR);
+            cont++;
+        }
+    }
+    fseek(arq, sizeof(registro), SEEK_SET);
     reg.num[0] = 'a' + (char)(rand()%26);
 }
 
@@ -33,7 +52,7 @@ void insercaoRegistro()
 //O conteúdo do registro encontrado deve ser apresentado no caso de busca bem sucedida.
 void buscaRegistro(int chave)
 {
-    arq = fopen("arquivo.dat", "w+b");
+    arq = fopen("arquivo.dat", "r+b"); //Abre o arquivo binário existente para leitura e gravação de dados do começo do arquivo
     if(arq == NULL)
             printf("\nErro ao abrir o arquivo\n");
     fread(&reg, sizeof(registro), 1, arq); //A cada fread, o ponteiro avança para o registro seguinte
@@ -60,8 +79,8 @@ void removeRegistro()
 //A listagem corresponde à apresentação de todos os registros válidos existentes no arquivo, na ordem física em que aparecem.
 void listagemRegistros()
 {
-    int cont = 0;
-    arq = fopen("arquivo.dat","r+a"); //Abre o arquivo binário existente para leitura e gravação de dados do começo do arquivo
+    int cont = 0; //Contador de registros em um campo
+    arq = fopen("arquivo.dat","r+b"); //Abre o arquivo binário existente para leitura e gravação de dados
     if(arq == NULL)
         printf("\nErro ao abrir o arquivo\n");
     fread(&reg, sizeof(registro), 1, arq);
